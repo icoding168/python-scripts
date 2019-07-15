@@ -57,7 +57,6 @@ def notification(content):
         print("调用钉钉机器人超时")
 
 def handle_check_remote():
-    notification('检测接口状态开始')
 
     url = 'http://182.61.33.241:8111/league/api/nim/consultant/find'
     try:
@@ -94,7 +93,6 @@ def handle_check_remote():
     except:
         notification('该后台服务没有正常运行：' + url)
 
-    notification('检测接口状态结束')
 
 
 def schedule():
