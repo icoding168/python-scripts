@@ -57,10 +57,37 @@ def notification(content):
 
 def handle_check_remote():
     url = 'http://182.61.33.241:8111/league/api/nim/consultant/find'
-
     try:
+        print('正在检测' + url)
         requests.post(url, timeout=10)
+    except:
+        notification('该后台服务没有正常运行：' + url)
 
+    url = 'http://woniujia.juke8.cn/league/api/nim/consultant/find'
+    try:
+        print('正在检测' + url)
+        requests.post(url, timeout=10)
+    except:
+        notification('该后台服务没有正常运行：' + url)
+
+    url = 'https://apis.juke8.cn/dsp/ex/weixin/user/login-by-code'
+    try:
+        print('正在检测' + url)
+        requests.post(url, timeout=10)
+    except:
+        notification('该后台服务没有正常运行：' + url)
+
+    url = 'http://www.juke8.cn:8086/admin/api/project-config/1.0/private/project/list/paging?page_size=10&page=1'
+    try:
+        print('正在检测' + url)
+        requests.post(url, timeout=10)
+    except:
+        notification('该后台服务没有正常运行：' + url)
+
+    url = 'http://dsp.juke8.cn/admin-console/#/projectConfig?p=god_bless_dsp'
+    try:
+        print('正在检测' + url)
+        requests.post(url, timeout=10)
     except:
         notification('该后台服务没有正常运行：' + url)
 
@@ -82,8 +109,8 @@ def main():
 
     # with daemon.DaemonContext():
     scheduler = BlockingScheduler()
-    scheduler.add_job(handle_check, 'interval', seconds=3,args=[process_name,cmd])
-    # scheduler.add_job(handle_check_remote, 'interval', seconds=60)
+    # scheduler.add_job(handle_check, 'interval', seconds=3,args=[process_name,cmd])
+    scheduler.add_job(handle_check_remote, 'interval', seconds=20)
 
     try:
         scheduler.start()
