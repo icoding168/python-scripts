@@ -99,14 +99,13 @@ def handle_check_remote():
 
 
 def schedule():
-    scheduler = BlockingScheduler()
-    # scheduler.add_job(handle_check, 'interval', seconds=3,args=[process_name,cmd])
-    scheduler.add_job(handle_check_remote, 'interval', seconds=60, next_run_time=datetime.now())
-
     try:
+        scheduler = BlockingScheduler()
+        # scheduler.add_job(handle_check, 'interval', seconds=3,args=[process_name,cmd])
+        scheduler.add_job(handle_check_remote, 'interval', seconds=60, next_run_time=datetime.now())
         scheduler.start()
-    except (KeyboardInterrupt, SystemExit):
-        pass
+    except Exception as e:
+        print(str(e))
 
 def main():
     process_name = 'testdfdfdf'
