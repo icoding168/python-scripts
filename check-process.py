@@ -52,52 +52,56 @@ def notification(content):
     params = {'access_token': 'b7bfe6e6e223605d9069162985caadb07040ff9f8f23fc1e924fb3c201083d69'}
 
     try:
-        requests.post(url, params=params, data=json.dumps(data), headers=headers)
+        requests.post(url, params=params, data=json.dumps(data), headers=headers,timeout=10)
 
     except:
         print("调用钉钉机器人超时")
 
 def handle_check_remote():
+    notification('检测接口状态开始')
+
     url = 'http://182.61.33.241:8111/league/api/nim/consultant/find'
     try:
-        notification('正在检测' + url)
+        
         requests.post(url, timeout=10)
     except:
         notification('该后台服务没有正常运行：' + url)
 
     url = 'http://woniujia.juke8.cn/league/api/nim/consultant/find'
     try:
-        notification('正在检测' + url)
+        
         requests.post(url, timeout=10)
     except:
         notification('该后台服务没有正常运行：' + url)
 
     url = 'https://apis.juke8.cn/dsp/ex/weixin/user/login-by-code'
     try:
-        notification('正在检测' + url)
+        
         requests.post(url, timeout=10)
     except:
         notification('该后台服务没有正常运行：' + url)
 
     url = 'http://www.juke8.cn:8086/admin/api/project-config/1.0/private/project/list/paging?page_size=10&page=1'
     try:
-        notification('正在检测' + url)
+        
         requests.post(url, timeout=10)
     except:
         notification('该后台服务没有正常运行：' + url)
 
     url = 'http://dsp.juke8.cn/admin-console/#/projectConfig?p=god_bless_dsp'
     try:
-        notification('正在检测' + url)
+        
         requests.post(url, timeout=10)
     except:
         notification('该后台服务没有正常运行：' + url)
+
+    notification('检测接口状态结束')
 
 
 def schedule():
     scheduler = BlockingScheduler()
     # scheduler.add_job(handle_check, 'interval', seconds=3,args=[process_name,cmd])
-    scheduler.add_job(handle_check_remote, 'interval', seconds=60, next_run_time=datetime.now())
+    scheduler.add_job(handle_check_remote, 'interval', seconds=10, next_run_time=datetime.now())
 
     try:
         scheduler.start()
