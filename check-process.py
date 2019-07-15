@@ -101,7 +101,7 @@ def handle_check_remote():
 def schedule():
     scheduler = BlockingScheduler()
     # scheduler.add_job(handle_check, 'interval', seconds=3,args=[process_name,cmd])
-    scheduler.add_job(handle_check_remote, 'interval', seconds=10)
+    scheduler.add_job(handle_check_remote, 'interval', seconds=60, next_run_time=datetime.now())
 
     try:
         scheduler.start()
