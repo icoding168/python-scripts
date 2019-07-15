@@ -94,6 +94,16 @@ def handle_check_remote():
         notification('该后台服务没有正常运行：' + url)
 
 
+def schedule():
+    scheduler = BlockingScheduler()
+    # scheduler.add_job(handle_check, 'interval', seconds=3,args=[process_name,cmd])
+    scheduler.add_job(handle_check_remote, 'interval', seconds=60, next_run_time=datetime.now())
+
+    try:
+        scheduler.start()
+    except (KeyboardInterrupt, SystemExit):
+        pass
+
 def main():
     process_name = 'testdfdfdf'
     cmd = ''
@@ -109,15 +119,8 @@ def main():
             print("请输入进程名称")
             exit()
 
-    with daemon.DaemonContext():
-        scheduler = BlockingScheduler()
-        # scheduler.add_job(handle_check, 'interval', seconds=3,args=[process_name,cmd])
-        scheduler.add_job(handle_check_remote, 'interval', seconds=60,next_run_time=datetime.now())
-
-        try:
-            scheduler.start()
-        except (KeyboardInterrupt, SystemExit):
-            pass
+    # with daemon.DaemonContext():
+    schedule()
 
 if __name__ == '__main__':
     main()
