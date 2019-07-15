@@ -53,7 +53,6 @@ def notification(content):
 
     try:
         response = requests.post(url, params=params, data=json.dumps(data), headers=headers,timeout=10)
-        print(response.content)
     except:
         print("调用钉钉机器人超时")
 
@@ -102,7 +101,7 @@ def schedule():
     try:
         scheduler = BlockingScheduler()
         # scheduler.add_job(handle_check, 'interval', seconds=3,args=[process_name,cmd])
-        scheduler.add_job(handle_check_remote, 'interval', seconds=10)
+        scheduler.add_job(handle_check_remote, 'interval', seconds=120)
         scheduler.start()
     except Exception as e:
         print(str(e))
@@ -124,8 +123,8 @@ def main():
 
     print('service started.')
 
-    # with daemon.DaemonContext():
-    schedule()
+    with daemon.DaemonContext():
+        schedule()
 
 if __name__ == '__main__':
     main()
