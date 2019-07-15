@@ -107,15 +107,15 @@ def main():
             print("请输入进程名称")
             exit()
 
-    # with daemon.DaemonContext():
-    scheduler = BlockingScheduler()
-    # scheduler.add_job(handle_check, 'interval', seconds=3,args=[process_name,cmd])
-    scheduler.add_job(handle_check_remote, 'interval', seconds=20)
+    with daemon.DaemonContext():
+        scheduler = BlockingScheduler()
+        # scheduler.add_job(handle_check, 'interval', seconds=3,args=[process_name,cmd])
+        scheduler.add_job(handle_check_remote, 'interval', seconds=500)
 
-    try:
-        scheduler.start()
-    except (KeyboardInterrupt, SystemExit):
-        pass
+        try:
+            scheduler.start()
+        except (KeyboardInterrupt, SystemExit):
+            pass
 
 if __name__ == '__main__':
     main()
