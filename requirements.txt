@@ -1,0 +1,4 @@
+apscheduler
+requests
+psutil
+python-daemon
