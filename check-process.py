@@ -52,8 +52,8 @@ def notification(content):
     params = {'access_token': 'b7bfe6e6e223605d9069162985caadb07040ff9f8f23fc1e924fb3c201083d69'}
 
     try:
-        requests.post(url, params=params, data=json.dumps(data), headers=headers,timeout=10)
-
+        response = requests.post(url, params=params, data=json.dumps(data), headers=headers,timeout=10)
+        print(response.content)
     except:
         print("调用钉钉机器人超时")
 
