@@ -123,6 +123,8 @@ def main():
             print("请输入进程名称")
             exit()
 
+    print('service started.')
+
     # with daemon.DaemonContext():
     schedule()
 
