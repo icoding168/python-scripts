@@ -58,12 +58,12 @@ def notification(content):
 
 def handle_check_remote():
 
-    url = 'http://182.61.33.241:8111/league/api/nim/consultant/find'
-    try:
-        
-        requests.post(url, timeout=20)
-    except:
-        notification('该后台服务没有正常运行：' + url)
+    # url = 'http://182.61.33.241:8111/league/api/nim/consultant/find'
+    # try:
+    #
+    #     requests.post(url, timeout=20)
+    # except:
+    #     notification('该后台服务没有正常运行：' + url)
 
     url = 'http://woniujia.juke8.cn/league/api/nim/consultant/find'
     try:
